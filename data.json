@@ -1,0 +1,482 @@
+{
+    "test.1c83.kas.zup.release":
+        {
+        "server_1c": "kas-1c01:2541",	
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ТОИР",
+        "repository_user": "test.toir",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.toir"
+        },
+    "test.toir":
+        {
+        "server_1c": "kas-1c01:2541",	
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ТОИР",
+        "repository_user": "test.toir",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.toir"
+        },
+    "test.1c83.uat":
+        {
+        "server_1c": "kas-1c01",	
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ТЛЭ",
+        "repository_user": "test.1c83.uat",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.uat"
+        },
+    "test.1c83.sym.zik":
+        {
+        "server_1c": "kas-1c01",	
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ЗУПКОРП",
+        "repository_user": "test.1c83.sym.zik",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.sym.zik"
+        },
+    "test.1c83.sot.zup":
+        {
+        "server_1c": "kas-1c01",	
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ЗУПКОРП",
+        "repository_user": "test.1c83.sot.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.sot.zup"
+        },
+    "zup.empty":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ЗУПКОРП",
+        "repository_user": "zup.empty",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "zup.empty"
+        },
+    "test.1c83.int.zik":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ЗУПКОРП",
+        "repository_user": "test.1c83.int.zik",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.int.zik"
+        },
+    "test.1c83.gg.zup":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ЗУПКОРП",
+        "repository_user": "test.1c83.gg.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.gg.zup"
+        },
+    "test.1c83.kas.zup":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/ЗУПКОРП",
+        "repository_user": "test.1c83.kas.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.kas.zup"				
+        },
+    "test.1c83.buh_ssk":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/БФ",
+        "repository_user": "test.1c83.buh",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.buh"				
+        },
+    "test.1c83.buh":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/БФ",
+        "repository_user": "test.1c83.buh",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.buh"				
+        },
+    "test.buh.releaase":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/БФ",
+        "repository_user": "test.1c83.buh.release",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.buh.releaase"				
+        },
+    "test.1c83.uat.release":
+        {
+        "server_1c": "kas-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ТЛЭ",
+        "repository_user": "test.1c83.uat.release",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-sql01",				
+        "sql_base": "test.1c83.uat.release"				
+        },
+    "prod.kaseng.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.kaseng.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.kaseng.zup"				
+        },
+    "prod.sibserv.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.sibserv.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.sibserv.zup"				
+        },
+    "prod.1c83.gg.zik":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.gg.zik"				
+        },
+    "prod.1c83.gg.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.1c83.gg.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.gg.zup"				
+        },
+    "prod.1c83.int.zik":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.1c83.int.zik",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.int.zik"				
+        },
+    "prod.1c83.kas.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.1c83.kas.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.kas.zup"				
+        },
+    "prod.1c83.kes.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.1c83.kes.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.kes.zup"				
+        },
+    "prod.1c83.sot.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.1c83.sot.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.sot.zup"				
+        },
+    "prod.1c83.sym.zik":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.1c83.sym.zik",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.sym.zik"				
+        },
+    "prod.1c83.total.uat":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ТЛЭ",
+        "repository_user": "prod.1c83.total.uat",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.total.uat"				
+        },
+    "prod.astextr.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "prod.astextr.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.astextr.zup"				
+        },
+    "prod.kasnrj.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.kasnrj.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.kasnrj.zup"				
+        },
+    "prod.kasnur2.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.kasnur2.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.kasnur2.zup"				
+        },
+    "prod.kasproj.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.kasproj.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.kasproj.zup"				
+        },
+    "prod.ptyh.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.ptyh.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.ptyh.zup"				
+        },
+    "prod.sgp.zup":
+        {
+        "server_1c": "kas-crc-1c02",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ЗУПКОРП",
+        "repository_user": "prod.sgp.zup",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.sgp.zup"				
+        },
+    "prod.tngd.zup":
+        {
+        "server_1c": "tngd-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "tng-crc-sql01",
+        "sql_base": "prod.tngd.zup"				
+        },
+    "prod.1c83.kas.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/БФ",
+        "repository_user": "prod.1c83.kas.buh",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.1c83.kas.buh"				
+        },
+    "prod.toir":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "tcp://kas-1c01/RELEASE/ТОИР",
+        "repository_user": "prod.toir",
+        "repository_password": "12345",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.toir"				
+        },
+    "prod.astextr.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.astextr.buh"				
+        },
+    "prod.ipail.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.ipail.buh"				
+        },
+    "old.att17.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "old.att17.buh"				
+        },
+    "old.eg.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "old.eg.buh"				
+        },
+    "prod.ipt.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.ipt.buh"				
+        },
+    "prod.ipm.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.ipm.buh"				
+        },
+    "prod.iptuv.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.iptuv.buh"				
+        },
+    "prod.tnsk.buh":
+        {
+        "server_1c": "kas-crc-1c01",
+        "user":"Администратор",
+        "password":"4x5-j8v-n-tz6",
+        "repository_path": "",
+        "repository_user": "",
+        "repository_password": "",
+        "extension_name": "",
+        "server_sql": "kas-crc-sql01",
+        "sql_base": "prod.tnsk.buh"				
+        }
+    }
