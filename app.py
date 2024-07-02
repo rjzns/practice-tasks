@@ -28,12 +28,12 @@ def create_database():
         inspector = inspect(db.engine)
         if not inspector.has_table('bases'):
             db.create_all()
-            print("Database created and populated.")
+            print("Бд создана")
             populate_database()
         else:
-            print("Database already exists.")
+            print("Бд уже существует")
             clear_database()
-            print("Database cleared.")
+            print("Бд отчищена")
             populate_database()
         print_database_contents()
 
@@ -41,10 +41,10 @@ def clear_database():
     try:
         db.session.query(BaseModel).delete()
         db.session.commit()
-        print("All records deleted successfully.")
+        print("Все записи удалены успешно")
     except Exception as e:
         db.session.rollback()
-        print(f"Error occurred while deleting records: {e}")
+        print(f"Возникла ошибка: {e}")
 
 def populate_database():
     try:
@@ -82,9 +82,9 @@ def print_database_contents():
         for base in bases:
             print(f'ID: {base.id}, Name: {base.name}, Server 1C: {base.server_1c}')
         if not bases:
-            print("Database is empty.")
+            print("Бд пуста")
     except Exception as e:
-        print(f"Error occurred while fetching records: {e}")
+        print(f"Возникла ошибка: {e}")
 
 @app.route('/')
 def index():
