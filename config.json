@@ -1,0 +1,10 @@
+{
+    "database": {
+        "dialect": "sqlite",
+        "name": "mydatabase.db",
+        "user": "",
+        "password": "",
+        "host": "",
+        "port": ""
+    }
+}

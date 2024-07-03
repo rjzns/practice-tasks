@@ -2,51 +2,105 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 import json
+from cryptography.fernet import Fernet
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+
+# Загрузка конфигурации из config.json
+with open('config.json', 'r', encoding='utf-8') as config_file:
+    config = json.load(config_file)
+
+db_dialect = config['database']['dialect']
+db_name = config['database']['name']
+db_user = config['database']['user']
+db_host = config['database']['host']
+db_port = config['database']['port']
+
+# Функции для работы с шифрованием
+def load_key():
+    return open("secret.key", "rb").read()
+
+def decrypt_password(user_password):
+    key = load_key()
+    f = Fernet(key)
+    try:
+        with open("encrypted_password.bin", "rb") as password_file:
+            encrypted_password = password_file.read()
+        decrypted_password = f.decrypt(encrypted_password).decode()
+        if decrypted_password == user_password:
+            return decrypted_password
+        else:
+            raise ValueError("Неверный пароль")
+    except Exception as e:
+        print(f"Ошибка при дешифровании пароля: {e}")
+        raise
+
+# Запрос пароля у пользователя для дешифрования
+user_password = input("Введите пароль для доступа к базе данных: ")
+db_password = decrypt_password(user_password)
+
+# Формирование строки подключения
+if db_dialect == 'sqlite':
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_name}'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'{db_dialect}://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# Проверяем, установлен ли SQLAlchemy
+try:
+    db = SQLAlchemy(app)
+except ImportError:
+    db = None
+    print("SQLAlchemy не установлен. Приложение работает в ограниченном режиме.")
 
-class BaseModel(db.Model):
+class BaseModel(db.Model if db else object):
     __tablename__ = 'bases'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    server_1c = db.Column(db.String(80), nullable=False)
-    user = db.Column(db.String(80), nullable=False)
-    password = db.Column(db.String(80), nullable=False)
-    repository_path = db.Column(db.String(120), nullable=False)
-    repository_user = db.Column(db.String(80), nullable=False)
-    repository_password = db.Column(db.String(80), nullable=False)
-    extension_name = db.Column(db.String(80), nullable=True)
-    server_sql = db.Column(db.String(80), nullable=False)
-    sql_base = db.Column(db.String(80), nullable=False)
+    id = db.Column(db.Integer, primary_key=True) if db else None
+    name = db.Column(db.String(80), nullable=False) if db else None
+    server_1c = db.Column(db.String(80), nullable=False) if db else None
+    user = db.Column(db.String(80), nullable=False) if db else None
+    password = db.Column(db.String(80), nullable=False) if db else None
+    repository_path = db.Column(db.String(120), nullable=False) if db else None
+    repository_user = db.Column(db.String(80), nullable=False) if db else None
+    repository_password = db.Column(db.String(80), nullable=False) if db else None
+    extension_name = db.Column(db.String(80), nullable=True) if db else None
+    server_sql = db.Column(db.String(80), nullable=False) if db else None
+    sql_base = db.Column(db.String(80), nullable=False) if db else None
 
 def create_database():
+    if not db:
+        print("SQLAlchemy не установлен. Невозможно создать базу данных.")
+        return
     with app.app_context():
         inspector = inspect(db.engine)
         if not inspector.has_table('bases'):
             db.create_all()
-            print("Бд создана")
+            print("База данных создана")
             populate_database()
         else:
-            print("Бд уже существует")
+            print("База данных уже существует")
             clear_database()
-            print("Бд отчищена")
+            print("База данных очищена")
             populate_database()
         print_database_contents()
 
 def clear_database():
+    if not db:
+        print("SQLAlchemy не установлен. Невозможно очистить базу данных.")
+        return
     try:
         db.session.query(BaseModel).delete()
         db.session.commit()
-        print("Все записи удалены успешно")
+        print("Все записи успешно удалены")
     except Exception as e:
         db.session.rollback()
-        print(f"Возникла ошибка: {e}")
+        print(f"Ошибка при удалении записей: {e}")
 
 def populate_database():
+    if not db:
+        print("SQLAlchemy не установлен. Невозможно заполнить базу данных.")
+        return
     try:
         with open('data.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -77,17 +131,22 @@ def populate_database():
         db.session.rollback()
 
 def print_database_contents():
+    if not db:
+        print("SQLAlchemy не установлен. Невозможно вывести содержимое базы данных.")
+        return
     try:
         bases = BaseModel.query.all()
         for base in bases:
             print(f'ID: {base.id}, Name: {base.name}, Server 1C: {base.server_1c}')
         if not bases:
-            print("Бд пуста")
+            print("База данных пуста")
     except Exception as e:
-        print(f"Возникла ошибка: {e}")
+        print(f"Ошибка при выводе содержимого базы данных: {e}")
 
 @app.route('/')
 def index():
+    if not db:
+        return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
     bases = BaseModel.query.all()
     return render_template('index.html', bases=bases)
 
