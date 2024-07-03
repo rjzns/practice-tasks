@@ -1,1 +1,16 @@
 data.json
+secret.key
+encrypted_password.bin
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+env/
+.env
+venv/
+.venv
+ENV/
+env.bak/
+venv.bak/
+*.db
+*.sqlite
