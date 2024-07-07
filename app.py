@@ -1,10 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 import json
 from cryptography.fernet import Fernet
+import pythoncom
+import win32com.client as win32
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'  # Необходим для использования flash-сообщений
 
 # Загрузка конфигурации из config.json
 with open('config.json', 'r', encoding='utf-8') as config_file:
@@ -77,25 +80,22 @@ def create_database():
         if not inspector.has_table('bases'):
             db.create_all()
             print("База данных создана")
-            populate_database()
+            populate_database_if_empty()
         else:
             print("База данных уже существует")
-            clear_database()
-            print("База данных очищена")
-            populate_database()
         print_database_contents()
 
-def clear_database():
+def populate_database_if_empty():
     if not db:
-        print("SQLAlchemy не установлен. Невозможно очистить базу данных.")
+        print("SQLAlchemy не установлен. Невозможно заполнить базу данных.")
         return
     try:
-        db.session.query(BaseModel).delete()
-        db.session.commit()
-        print("Все записи успешно удалены")
+        if db.session.query(BaseModel).count() == 0:
+            populate_database()
+        else:
+            print("База данных уже заполнена.")
     except Exception as e:
-        db.session.rollback()
-        print(f"Ошибка при удалении записей: {e}")
+        print(f"Ошибка при проверке базы данных: {e}")
 
 def populate_database():
     if not db:
@@ -149,6 +149,63 @@ def index():
         return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
     bases = BaseModel.query.all()
     return render_template('index.html', bases=bases)
+
+@app.route('/base/<int:base_id>')
+def show_base(base_id):
+    if not db:
+        return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
+    base = BaseModel.query.get_or_404(base_id)
+    base_details = {
+        'id': base.id,
+        'name': base.name,
+        'server_1c': base.server_1c,
+        'user': base.user,
+        'password': base.password,
+        'repository_path': base.repository_path,
+        'repository_user': base.repository_user,
+        'repository_password': base.repository_password,
+        'extension_name': base.extension_name,
+        'server_sql': base.server_sql,
+        'sql_base': base.sql_base
+    }
+    connection_status = connect_to_1c(base_details)
+    return render_template('base_details.html', base=base_details, connection_status=connection_status)
+
+@app.route('/edit_base/<int:base_id>', methods=['GET', 'POST'])
+def edit_base(base_id):
+    if not db:
+        return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
+    base = BaseModel.query.get_or_404(base_id)
+    if request.method == 'POST':
+        base.name = request.form['name']
+        base.server_1c = request.form['server_1c']
+        base.user = request.form['user']
+        base.password = request.form['password']
+        base.repository_path = request.form['repository_path']
+        base.repository_user = request.form['repository_user']
+        base.repository_password = request.form['repository_password']
+        base.extension_name = request.form.get('extension_name')
+        base.server_sql = request.form['server_sql']
+        base.sql_base = request.form['sql_base']
+        try:
+            db.session.commit()
+            flash("База успешно обновлена!", "success")
+            return redirect(url_for('show_base', base_id=base.id))
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Ошибка при обновлении базы: {e}", "danger")
+    return render_template('edit_base.html', base=base)
+
+def connect_to_1c(base):
+    try:
+        pythoncom.CoInitialize()
+        v8 = win32.Dispatch("V83.COMConnector")
+        connection_string = f'File="{base["repository_path"]}";Usr="{base["user"]}";Pwd="{base["password"]}";'
+        connection = v8.Connect(connection_string)
+        return "Подключение успешно"
+    except Exception as e:
+        print(f"Ошибка подключения к базе 1С: {e}")
+        return f"Ошибка подключения: {e}"
 
 if __name__ == '__main__':
     create_database()

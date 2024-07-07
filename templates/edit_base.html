@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать базу данных</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Редактировать базу данных</h1>
+        <form method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" value="{{ base.name }}" class="input-field"><br>
+            <label for="server_1c">Server 1C:</label><br>
+            <input type="text" id="server_1c" name="server_1c" value="{{ base.server_1c }}" class="input-field"><br>
+            <label for="user">User:</label><br>
+            <input type="text" id="user" name="user" value="{{ base.user }}" class="input-field"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" value="{{ base.password }}" class="input-field"><br>
+            <label for="repository_path">Repository Path:</label><br>
+            <input type="text" id="repository_path" name="repository_path" value="{{ base.repository_path }}" class="input-field"><br>
+            <label for="repository_user">Repository User:</label><br>
+            <input type="text" id="repository_user" name="repository_user" value="{{ base.repository_user }}" class="input-field"><br>
+            <label for="repository_password">Repository Password:</label><br>
+            <input type="password" id="repository_password" name="repository_password" value="{{ base.repository_password }}" class="input-field"><br>
+            <label for="extension_name">Extension Name:</label><br>
+            <input type="text" id="extension_name" name="extension_name" value="{{ base.extension_name }}" class="input-field"><br>
+            <label for="server_sql">Server SQL:</label><br>
+            <input type="text" id="server_sql" name="server_sql" value="{{ base.server_sql }}" class="input-field"><br>
+            <label for="sql_base">SQL Base:</label><br>
+            <input type="text" id="sql_base" name="sql_base" value="{{ base.sql_base }}" class="input-field"><br><br>
+            <input type="submit" value="Сохранить" class="submit-button">
+        </form>
+        <section class="base-actions">
+            <a href="{{ url_for('index') }}">Назад к списку</a>
+        </section>
+    </div>
+</body>
+</html>
