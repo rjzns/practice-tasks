@@ -9,11 +9,21 @@
 <body>
     <div class="container">
         <h1>Список баз</h1>
-        <ul>
-            {% for base in bases %}
-                <li><a href="{{ url_for('show_base', base_id=base.id) }}">{{ base.name }}</a></li>
-            {% endfor %}
-        </ul>
+        <form method="POST" action="{{ url_for('perform_action') }}">
+            <ul>
+                {% for base in bases %}
+                    <li>
+                        <input type="checkbox" name="selected_bases" value="{{ base.id }}">
+                        <a href="{{ url_for('show_base', base_id=base.id) }}">{{ base.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="actions">
+                <button type="submit" name="action" value="delete" class="action-button">Удалить</button>
+                <button type="submit" name="action" value="export" class="action-button">Экспортировать</button>
+                <button type="submit" name="action" value="archive" class="action-button">Архивировать</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>

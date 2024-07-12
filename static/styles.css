@@ -89,3 +89,26 @@ li:nth-child(odd) {
 .submit-button:hover {
     background-color: #151515;
 }
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    right: 40px;
+    top: 100px;
+}
+
+.action-button {
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+    background-color: #151515;
+}

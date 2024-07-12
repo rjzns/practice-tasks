@@ -1,16 +1,20 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 import json
 from cryptography.fernet import Fernet
 import pythoncom
 import win32com.client as win32
+import shutil
+import os
+import zipfile
+from io import BytesIO
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Необходим для использования flash-сообщений
 
 # Загрузка конфигурации из config.json
-with open('config.json', 'r', encoding='utf-8') as config_file:
+with open('config.json', 'r', encoding='utf-8-sig') as config_file:
     config = json.load(config_file)
 
 db_dialect = config['database']['dialect']
@@ -154,7 +158,9 @@ def index():
 def show_base(base_id):
     if not db:
         return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
-    base = BaseModel.query.get_or_404(base_id)
+    base = db.session.get(BaseModel, base_id)
+    if not base:
+        return "База данных не найдена", 404
     base_details = {
         'id': base.id,
         'name': base.name,
@@ -175,7 +181,9 @@ def show_base(base_id):
 def edit_base(base_id):
     if not db:
         return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
-    base = BaseModel.query.get_or_404(base_id)
+    base = db.session.get(BaseModel, base_id)
+    if not base:
+        return "База данных не найдена", 404
     if request.method == 'POST':
         base.name = request.form['name']
         base.server_1c = request.form['server_1c']
@@ -200,12 +208,102 @@ def connect_to_1c(base):
     try:
         pythoncom.CoInitialize()
         v8 = win32.Dispatch("V83.COMConnector")
-        connection_string = f'File="{base["repository_path"]}";Usr="{base["user"]}";Pwd="{base["password"]}";'
+        connection_string = f'Srvr="{base["server_1c"]}";Ref="{base["name"]}";Usr="{base["user"]}";Pwd="{base["password"]}";'
         connection = v8.Connect(connection_string)
         return "Подключение успешно"
     except Exception as e:
         print(f"Ошибка подключения к базе 1С: {e}")
         return f"Ошибка подключения: {e}"
+
+@app.route('/perform_action', methods=['POST'])
+def perform_action():
+    if not db:
+        return "SQLAlchemy не установлен. Приложение работает в ограниченном режиме."
+    action = request.form.get('action')
+    selected_bases = request.form.getlist('selected_bases')
+    if not selected_bases:
+        flash("Пожалуйста, выберите базы данных для выполнения действия.", "warning")
+        return redirect(url_for('index'))
+    if action == 'delete':
+        delete_bases(selected_bases)
+    elif action == 'export':
+        return export_bases(selected_bases)
+    elif action == 'archive':
+        return archive_bases(selected_bases)
+    return redirect(url_for('index'))
+
+def delete_bases(base_ids):
+    try:
+        for base_id in base_ids:
+            base = db.session.get(BaseModel, base_id)
+            if base:
+                db.session.delete(base)
+        db.session.commit()
+        flash("Базы успешно удалены!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Ошибка при удалении баз: {e}", "danger")
+
+def export_bases(base_ids):
+    try:
+        bases_data = []
+        for base_id in base_ids:
+            base = db.session.get(BaseModel, base_id)
+            if base:
+                base_details = {
+                    'id': base.id,
+                    'name': base.name,
+                    'server_1c': base.server_1c,
+                    'user': base.user,
+                    'password': base.password,
+                    'repository_path': base.repository_path,
+                    'repository_user': base.repository_user,
+                    'repository_password': base.repository_password,
+                    'extension_name': base.extension_name,
+                    'server_sql': base.server_sql,
+                    'sql_base': base.sql_base
+                }
+                bases_data.append(base_details)
+        
+        # Сохранение данных в файл
+        json_data = json.dumps(bases_data, ensure_ascii=False, indent=4)
+        buffer = BytesIO()
+        buffer.write(json_data.encode('utf-8'))
+        buffer.seek(0)
+        
+        return send_file(buffer, as_attachment=True, download_name="exported_bases.json", mimetype="application/json")
+    except Exception as e:
+        flash(f"Ошибка при экспорте баз: {e}", "danger")
+        return redirect(url_for('index'))
+
+def archive_bases(base_ids):
+    try:
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            for base_id in base_ids:
+                base = db.session.get(BaseModel, base_id)
+                if base:
+                    base_details = {
+                        'id': base.id,
+                        'name': base.name,
+                        'server_1c': base.server_1c,
+                        'user': base.user,
+                        'password': base.password,
+                        'repository_path': base.repository_path,
+                        'repository_user': base.repository_user,
+                        'repository_password': base.repository_password,
+                        'extension_name': base.extension_name,
+                        'server_sql': base.server_sql,
+                        'sql_base': base.sql_base
+                    }
+                    json_data = json.dumps(base_details, ensure_ascii=False, indent=4)
+                    zip_file.writestr(f"{base.name}.json", json_data)
+
+        zip_buffer.seek(0)
+        return send_file(zip_buffer, as_attachment=True, download_name="archived_bases.zip", mimetype="application/zip")
+    except Exception as e:
+        flash(f"Ошибка при архивировании баз: {e}", "danger")
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
     create_database()

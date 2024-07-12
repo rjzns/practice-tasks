@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base Details</title>
+    <title>Детали базы</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Информация о базе {{ base.name }}</h1>
+        <h1>Детали базы данных</h1>
         <ul>
-            <li>Server 1C: {{ base.server_1c }}</li>
-            <li>User: {{ base.user }}</li>
-            <li>Repository Path: {{ base.repository_path }}</li>
-            <li>Repository User: {{ base.repository_user }}</li>
-            <li>Repository Password: {{ base.repository_password }}</li>
-            <li>Extension Name: {{ base.extension_name }}</li>
-            <li>Server SQL: {{ base.server_sql }}</li>
-            <li>SQL Base: {{ base.sql_base }}</li>
+            <li><strong>ID:</strong> {{ base.id }}</li>
+            <li><strong>Name:</strong> {{ base.name }}</li>
+            <li><strong>Server 1C:</strong> {{ base.server_1c }}</li>
+            <li><strong>User:</strong> {{ base.user }}</li>
+            <li><strong>Password:</strong> {{ base.password }}</li>
+            <li><strong>Repository Path:</strong> {{ base.repository_path }}</li>
+            <li><strong>Repository User:</strong> {{ base.repository_user }}</li>
+            <li><strong>Repository Password:</strong> {{ base.repository_password }}</li>
+            <li><strong>Extension Name:</strong> {{ base.extension_name }}</li>
+            <li><strong>Server SQL:</strong> {{ base.server_sql }}</li>
+            <li><strong>SQL Base:</strong> {{ base.sql_base }}</li>
         </ul>
-        <p>Status: {{ connection_status }}</p>
+        <p>{{ connection_status }}</p>
+
+        <div class="actions">
+            <form method="POST" action="{{ url_for('perform_action') }}">
+                <input type="hidden" name="selected_bases" value="{{ base.id }}">
+                <button type="submit" name="action" value="delete" class="action-button">Удалить</button>
+                <button type="submit" name="action" value="export" class="action-button">Экспортировать</button>
+                <button type="submit" name="action" value="archive" class="action-button">Архивировать</button>
+            </form>
+        </div>
+        
         <section class="base-actions">
             <a href="{{ url_for('index') }}">Назад к списку</a>
             <a href="{{ url_for('edit_base', base_id=base.id) }}">Редактировать</a>
